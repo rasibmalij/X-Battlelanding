@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X BATTLE - India's Ultimate Esports Arena</title>
+
+    <!-- External Library CDNs -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables for Color Palette */
+        :root {
+            --primary-bg: #0F172A;
+            --secondary-bg: #1E293B;
+            --text-primary: #E2E8F0;
+            --text-secondary: #94A3B8;
+            --accent-color: #FACC15;
+            --border-color: #334155;
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+        }
+
+        .text-accent {
+            color: var(--accent-color);
+        }
+
+        .bg-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .bg-secondary {
+            background-color: var(--secondary-bg);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.2);
+            color: var(--primary-bg);
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Header/Navbar */
+        .navbar {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand img {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .navbar-brand span {
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .dropdown-menu {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-item {
+            color: var(--text-primary);
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--border-color);
+            color: var(--accent-color);
+        }
+        
+        .navbar-toggler {
+            border-color: var(--border-color);
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28226, 232, 240, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+
+        /* Hero Section */
+        #hero {
+            padding-top: 150px;
+            padding-bottom: 100px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-image {
+            max-width: 450px;
+            margin: 40px auto 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .btn-secondary-custom {
+            background: transparent;
+            border: none;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        .btn-secondary-custom:hover {
+            text-decoration: underline;
+        }
+        
+        /* Fade-in-up animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Game Slider Section */
+        .game-slider {
+            padding: 60px 0;
+        }
+        
+        .swiper-container {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .swiper-slide {
+            width: 200px;
+            height: 250px;
+            background-color: var(--primary-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 0 15px;
+            transition: transform 0.3s;
+        }
+        
+        .swiper-slide:hover {
+            transform: scale(1.05);
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* How It Works Section */
+        .step-card {
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .step-card .step-number {
+            position: absolute;
+            top: -20px;
+            right: 10px;
+            font-size: 6rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+            z-index: 0;
+        }
+
+        .step-card .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        /* Features Section */
+        .feature-item i {
+            font-size: 3rem;
+            color: var(--accent-color);
+        }
+        
+        /* FAQ Section */
+        .accordion-item {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        .accordion-button {
+            background-color: var(--secondary-bg);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--border-color);
+            color: var(--accent-color);
+            box-shadow: none;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--accent-color);
+        }
+        
+        .accordion-button::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2394A3B8'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+        
+        .accordion-button:not(.collapsed)::after {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FACC15'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            color: var(--text-secondary);
+        }
+        
+        /* Sticky Download Bar (Mobile Only) */
+        .sticky-download-bar {
+            display: none; /* Hidden by default */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--secondary-bg);
+            padding: 10px;
+            z-index: 1000;
+            border-top: 1px solid var(--border-color);
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 767.98px) {
+            .sticky-download-bar {
+                display: block;
+            }
+            body {
+                padding-bottom: 70px; /* To prevent content from being hidden by the bar */
+            }
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .modal-header {
+            border-bottom-color: var(--border-color);
+        }
+        
+        .modal-footer {
+            border-top-color: var(--border-color);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header/Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://i.ibb.co/217TTwcW/20251015-153715.png" alt="X BATTLE Logo">
+                <span class="text-white">X BATTLE</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How to Play</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: var(--border-color);"></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#privacyPolicyModal">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#fairPlayModal">Fair Play Policy</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#refundModal">Refund Policy</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-accent" href="#">Download App</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-3 fw-bold mb-3 fade-in-up">India's Ultimate <span class="text-accent">Esports Arena</span> is Here</h1>
+                    <p class="lead text-secondary mb-4 fade-in-up" style="transition-delay: 0.2s;">
+                        Join thousands of players in daily tournaments for your favorite games. Compete, win, and withdraw your earnings instantly. Your journey to esports glory starts now!
+                    </p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center fade-in-up" style="transition-delay: 0.4s;">
+                        <a href="#" class="btn btn-accent btn-lg px-4 gap-3">Download & Start Playing</a>
+                    </div>
+                    <button class="btn btn-secondary-custom fade-in-up" style="transition-delay: 0.6s;">Get ₹10 FREE on Signup!</button>
+                </div>
+            </div>
+            <img src="https://i.ibb.co/217TTwcW/20251015-153715.png" alt="Hero Image" class="img-fluid hero-image fade-in-up" style="transition-delay: 0.8s;">
+        </div>
+    </section>
+
+    <!-- Game Slider Section -->
+    <section class="bg-secondary game-slider">
+        <div class="container text-center">
+            <h2 class="mb-5 fade-in-up">Tournaments for Your Favorite Games</h2>
+            <div class="swiper-container fade-in-up">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/BGMI.png" alt="BGMI"></div>
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/FFM.png" alt="Free Fire Max"></div>
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/Pubg_New_State.png" alt="PUBG New State"></div>
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/BGMI.png" alt="BGMI"></div>
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/FFM.png" alt="Free Fire Max"></div>
+                    <div class="swiper-slide"><img src="https://www.gamerji.com/img/games/Pubg_New_State.png" alt="PUBG New State"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fade-in-up">Getting Started is Easy</h2>
+                <p class="text-secondary fade-in-up" style="transition-delay: 0.2s;">Three simple steps to start your winning streak.</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 fade-in-up" style="transition-delay: 0.4s;">
+                    <div class="step-card h-100">
+                        <span class="step-number">01</span>
+                        <div class="icon"><i class="bi bi-download"></i></div>
+                        <h4>Download & Register</h4>
+                        <p class="text-secondary">Get the app from our website, create your account in seconds, and claim your free signup bonus to get started.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 fade-in-up" style="transition-delay: 0.6s;">
+                    <div class="step-card h-100">
+                        <span class="step-number">02</span>
+                        <div class="icon"><i class="bi bi-trophy"></i></div>
+                        <h4>Join a Tournament</h4>
+                        <p class="text-secondary">Browse daily tournaments for various games. Pick your match, check the details, and join a slot that suits you.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 fade-in-up" style="transition-delay: 0.8s;">
+                    <div class="step-card h-100">
+                        <span class="step-number">03</span>
+                        <div class="icon"><i class="bi bi-cash-coin"></i></div>
+                        <h4>Play, Win & Withdraw</h4>
+                        <p class="text-secondary">Perform your best in the match to secure a top rank. Winnings are credited to your wallet instantly for withdrawal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-padding bg-secondary">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fade-in-up">Why Choose X BATTLE?</h2>
+                <p class="text-secondary fade-in-up" style="transition-delay: 0.2s;">We provide a best-in-class, secure, and rewarding gaming experience.</p>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-6 fade-in-up" style="transition-delay: 0.4s;">
+                    <div class="feature-item text-center text-md-start">
+                        <i class="bi bi-shield-check mb-3"></i>
+                        <h4 class="fw-bold">100% Secure & Fair Play</h4>
+                        <p class="text-secondary">Our platform uses advanced anti-cheat technology and manual verification to ensure a level playing field for everyone.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 fade-in-up" style="transition-delay: 0.6s;">
+                    <div class="feature-item text-center text-md-start">
+                        <i class="bi bi-lightning-charge-fill mb-3"></i>
+                        <h4 class="fw-bold">Instant Withdrawals</h4>
+                        <p class="text-secondary">Won a match? Your winnings are credited to your wallet immediately. Withdraw to your bank or UPI in just a few taps.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 fade-in-up" style="transition-delay: 0.8s;">
+                    <div class="feature-item text-center text-md-start">
+                        <i class="bi bi-gift-fill mb-3"></i>
+                        <h4 class="fw-bold">Generous Referral Program</h4>
+                        <p class="text-secondary">Invite your friends to join the battle! Earn exciting bonuses for every friend that signs up and plays on our platform.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 fade-in-up" style="transition-delay: 1s;">
+                    <div class="feature-item text-center text-md-start">
+                        <i class="bi bi-headset mb-3"></i>
+                        <h4 class="fw-bold">24/7 Customer Support</h4>
+                        <p class="text-secondary">Got a question or need help? Our dedicated support team is available around the clock via chat and email to assist you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fade-in-up">Frequently Asked Questions</h2>
+                <p class="text-secondary fade-in-up" style="transition-delay: 0.2s;">Have questions? We've got answers.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 fade-in-up" style="transition-delay: 0.4s;">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Is playing paid tournaments on X BATTLE legal in India?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    Absolutely. The games of skill hosted on X BATTLE are legally permitted in most states in India. Esports are considered games of skill, which are excluded from the definition of gambling. However, residents of certain states might be restricted from participating in paid contests. Please check your local laws.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    How long does it take to withdraw my winnings?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    We pride ourselves on instant withdrawals! Once you place a withdrawal request, the amount is typically processed and transferred to your linked UPI or bank account within minutes. In rare cases, it might take up to 24 hours due to bank processing times.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Are there any free tournaments to play?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-secondary">
+                                    Yes! We regularly host free-to-enter tournaments where you can practice your skills and even win real cash prizes. Keep an eye on the app for announcements about upcoming free events and special promotional contests.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <h5>X BATTLE</h5>
+            <p class="small">Disclaimer: This is a real-money gaming platform. Please play responsibly and at your own risk. This service is only for users aged 18 and above.</p>
+            <p class="mb-0">&copy; 2025 X BATTLE. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Sticky Download Bar (Mobile Only) -->
+    <div class="sticky-download-bar">
+        <div class="d-grid">
+            <a href="#" class="btn btn-accent">Download & Get ₹10 Bonus</a>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyPolicyModal" tabindex="-1" aria-labelledby="privacyPolicyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="privacyPolicyModalLabel">Privacy Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-secondary">
+            <p><strong>Last Updated: October 15, 2025</strong></p>
+            <p>Welcome to <span class="text-accent fw-bold">X BATTLE</span>. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.</p>
+            
+            <h6>1. Information We Collect</h6>
+            <p>We may collect personal identification information (Name, email address, phone number, etc.), device information, and usage data to provide and improve our service.</p>
+            
+            <h6>2. How We Use Your Information</h6>
+            <p>Your information is used to: create and manage your account, process transactions, send you push notifications, monitor and analyze usage and trends to improve your experience, and enforce our terms and conditions.</p>
+
+            <h6>3. Sharing Your Information</h6>
+            <p>We do not share your personal information with third parties except as described in this Privacy Policy, such as with vendors, consultants, and other service providers who need access to such information to carry out work on our behalf or to comply with laws.</p>
+            
+            <h6>4. Security of Your Information</h6>
+            <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable.</p>
+
+            <h6>5. Your Rights</h6>
+            <p>You have the right to access, update, or delete the information we have on you. You can do this by accessing your account settings within the <span class="text-accent fw-bold">X BATTLE</span> application.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="termsModalLabel">Terms & Conditions</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-secondary">
+            <p><strong>Last Updated: October 15, 2025</strong></p>
+            <p>Please read these Terms and Conditions carefully before using the <span class="text-accent fw-bold">X BATTLE</span> application.</p>
+            
+            <h6>1. Agreement to Terms</h6>
+            <p>By accessing or using our service, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the service.</p>
+            
+            <h6>2. Eligibility</h6>
+            <p>You must be at least 18 years of age to create an account on <span class="text-accent fw-bold">X BATTLE</span> and use its services. By using the app, you represent and warrant that you meet this requirement.</p>
+            
+            <h6>3. User Accounts</h6>
+            <p>You are responsible for safeguarding the password that you use to access the service and for any activities or actions under your password. <span class="text-accent fw-bold">X BATTLE</span> cannot and will not be liable for any loss or damage arising from your failure to comply with the above.</p>
+            
+            <h6>4. Prohibited Conduct</h6>
+            <p>You agree not to use the service for any unlawful purpose or to engage in any conduct that is harmful, fraudulent, or otherwise objectionable. This includes cheating, using unauthorized third-party software, or exploiting bugs.</p>
+            
+            <h6>5. Termination</h6>
+            <p>We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Fair Play Policy Modal -->
+    <div class="modal fade" id="fairPlayModal" tabindex="-1" aria-labelledby="fairPlayModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="fairPlayModalLabel">Fair Play Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-secondary">
+            <p><span class="text-accent fw-bold">X BATTLE</span> is committed to providing a fair and competitive environment for all our players. Our Fair Play Policy outlines the conduct we expect from our users.</p>
+            
+            <h6>1. No Cheating</h6>
+            <p>Any use of third-party software, hacks, mods, scripts, or any other unauthorized tools to gain an unfair advantage is strictly prohibited. This includes, but is not limited to, aimbots, wallhacks, and any form of game data manipulation.</p>
+            
+            <h6>2. One Account Per Player</h6>
+            <p>Each player is permitted to have only one account on <span class="text-accent fw-bold">X BATTLE</span>. Creating multiple accounts for any reason, including colluding with other players, is a violation of our policy.</p>
+            
+            <h6>3. Sportsmanship</h6>
+            <p>We expect all players to treat each other with respect. Harassment, abuse, teaming up in solo matches, or any form of unsportsmanlike conduct will not be tolerated.</p>
+
+            <h6>4. Consequences of Violation</h6>
+            <p>Any violation of the Fair Play Policy may result in immediate account suspension, permanent ban, and forfeiture of any winnings. The severity of the penalty will be determined by <span class="text-accent fw-bold">X BATTLE</span> at its sole discretion.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Refund & Cancellation Policy Modal -->
+    <div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="refundModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="refundModalLabel">Refund & Cancellation Policy</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-secondary">
+            <p>This policy governs the refund and cancellation of transactions on the <span class="text-accent fw-bold">X BATTLE</span> platform.</p>
+            
+            <h6>1. General Policy</h6>
+            <p>Once a user joins a tournament by paying the entry fee, the transaction is considered final. No cancellations are permitted, and the entry fee will not be refunded.</p>
+            
+            <h6>2. Tournament Cancellation by X BATTLE</h6>
+            <p>In the rare event that a tournament is canceled by <span class="text-accent fw-bold">X BATTLE</span> due to technical issues, insufficient participation, or any other reason, all registered users will receive a full refund of their entry fee to their <span class="text-accent fw-bold">X BATTLE</span> wallet.</p>
+            
+            <h6>3. Game Interruption</h6>
+            <p>If a game is interrupted due to server-side issues on our end, we will investigate the matter. Depending on the circumstances, <span class="text-accent fw-bold">X BATTLE</span> may, at its sole discretion, decide to refund the entry fee to the affected players.</p>
+
+            <h6>4. No Refund for User-Side Issues</h6>
+            <p>We are not liable for refunds in cases of poor internet connection, device malfunction, or any other issues on the user's end that prevent them from playing the match.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- External Library JS CDNs -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Embedded JavaScript -->
+    <script>
+        // Initialize Swiper
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.swiper-container', {
+                loop: true,
+                slidesPerView: 'auto',
+                centeredSlides: true,
+                spaceBetween: 30,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                speed: 800,
+            });
+
+            // Fade-in-up animation on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const fadeUpElements = document.querySelectorAll('.fade-in-up');
+            fadeUpElements.forEach(el => observer.observe(el));
+            
+            // Navbar shrink on scroll
+            const navbar = document.getElementById('mainNav');
+            if (navbar) {
+                window.onscroll = () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('navbar-scrolled');
+                    } else {
+                        navbar.classList.remove('navbar-scrolled');
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+</html>
